@@ -9,13 +9,16 @@ import UIKit
 import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate {
-
+class ViewController: UIViewController, ARSCNViewDelegate,ARSessionDelegate
+{
     // SceneKitのビュークラス
     @IBOutlet var sceneView: ARSCNView!
     
     // 椅子のコンテンツ
     var chair: VirtualObject?
+    
+    //
+    var sessionStatusLabel: UILabel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +28,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Show statistics such as fps and timing information
         // デバッグ情報の表示
-        sceneView.showsStatistics = true
+        sceneView.showsStatistics = false
+        
+        sceneView.delegate = self
+        sceneView.session.delegate = self
         
         // Create a new scene
         let scene = SCNScene()
@@ -43,6 +49,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        resetTracking()
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
@@ -59,14 +66,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer,didAdd node: SCNNode, for anchor: ARAnchor){
         // 平面検出された時に追加されるARアンカーかどうかを、ARPlaneAnchorかどうかで判断する
         // キャストの成否で判断する
-        guard let planeAnchor = anchor as? ARPlaneAnchor else {
+        guard let _ = anchor as? ARPlaneAnchor else {
             return
         }
         
-        // center 平面の場所 extent 平面の大きさ
-        print("Plane Detected: center\(planeAnchor.center), extent=\(planeAnchor.extent)")
+        sessionStatusLabel?.text = "Plane was detected (SceneKit)"
+        print("Plane was detected (SceneKit)")
     }
     
+    // アンカーが削除されたときに呼ばれるデリゲートメソッド
+    func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor){
+        // 検出された平面用のアンカーがどうかを調べる
+        guard let _ = anchor as? ARPlaneAnchor else {
+            return
+        }
+        
+        sessionStatusLabel?.text = "Plane was removed (SceneKit)"
+        print("Plane was removed (SceneKit)")
+    }
     
     private func placeChair(_ chair: VirtualObject){
         // カメラの焦点 0.8m 離れた地点に移動する
@@ -80,7 +97,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // ARアンカーを移動する
         updateAnchor(of: chair)
-        
     }
     
     // ARアンカーの位置をノードの位置に移動する
@@ -185,13 +201,37 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         chair = nil
     }
     
+    func addSessionStatusLabel() {
+        // sceneViewの下端に配置する
+        let labelFrame = CGRect(x: 0,
+                                y: sceneView.bounds.height - 21,
+                                width: sceneView.bounds.width,
+                                height: 21)
+        // ラベルを作成する
+        sessionStatusLabel = UILabel(frame: labelFrame)
+        guard sessionStatusLabel != nil else {
+            return
+        }
+        
+        sceneView.addSubview(sessionStatusLabel!)
+        
+        // 背景色を白色にする
+        sessionStatusLabel?.backgroundColor = .white
+        
+        // フォントを固定する
+        sessionStatusLabel?.font = .systemFont(ofSize: 17.0)
+        
+        // 常に下端に横幅一杯で表示する
+        sessionStatusLabel?.autoresizingMask = [.flexibleWidth,.flexibleTopMargin]
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Pause the view's session
         sceneView.session.pause()
     }
-
+    
+    
     // MARK: - ARSCNViewDelegate
     
 /*
@@ -208,13 +248,52 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
     }
     
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
+    // ARSessionDelegateのメソッド
+    func session(_ session: ARSession, didAdd anchors: [ARAnchor]){
+        for anchor in anchors {
+            // 平面のアンカーかどうかを判定
+            if let _ = anchor as? ARPlaneAnchor {
+                sessionStatusLabel?.text = "Plane was detected (ARSession)"
+                print("Plane was detected (ARSession)")
+            }
+        }
     }
     
+    // ARSessionDelegateのメソッド
+    // アンカー削除時に呼ばれる
+    func session(_ session: ARSession, didRemove anchors: [ARAnchor]){
+        for anchor in anchors {
+            // 平面のアンカーかどうかを判定
+            if let _ = anchor as? ARPlaneAnchor {
+                sessionStatusLabel?.text = "Plane was removed (ARSession)"
+                print("Plane was removed (ARSession)")
+            }
+        }
+    }
+    
+    // 割り込みによりセッションが中断されたときに呼ばれる
+    func sessionWasInterrupted(_ session: ARSession) {
+        // Inform the user that the session has been interrupted, for example, by presenting an overlay
+        sessionStatusLabel?.text = "Session was interrupted"
+        print("Session was interrupted")
+        
+        removeChair()
+    }
+    
+    // 中断されたセッションが再開されたときに呼ばれる
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
+        sessionStatusLabel?.text = "Session interruption ended"
+        print("Session interruption ended")
         
+        resetTracking()
+    }
+    
+    // トラッキングリセット
+    func resetTracking(){
+        let configuration = ARWorldTrackingConfiguration()
+        // 水平面を検出する
+        configuration.planeDetection = [.horizontal]
+        sceneView.session.run(configuration,options: [.resetTracking,.removeExistingAnchors])
     }
 }
