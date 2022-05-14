@@ -5,3 +5,8 @@
 3. ARセッションに追加(物理空間にコンテンツを配置) 
 4. 表示
 
+#### ARSessionObserver
+下記のプロトコルがARSessionObserverプロトコルを継承している
+- ARSessionDelegate
+- ARSCNViewDelegate
+- ARSKViewDelegate

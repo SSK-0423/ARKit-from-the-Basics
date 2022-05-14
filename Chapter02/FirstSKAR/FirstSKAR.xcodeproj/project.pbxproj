@@ -14,6 +14,7 @@
 		522C9C97282BDF0C00BA98B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 522C9C96282BDF0C00BA98B2 /* Assets.xcassets */; };
 		522C9C9A282BDF0C00BA98B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 522C9C98282BDF0C00BA98B2 /* LaunchScreen.storyboard */; };
 		5237C008282CCC27005F7C2F /* VirtualObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5237C007282CCC27005F7C2F /* VirtualObject.swift */; };
+		52F1926A282FCC2A00F3C520 /* ViewController+Coaching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F19269282FCC2A00F3C520 /* ViewController+Coaching.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		522C9C99282BDF0C00BA98B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5237C007282CCC27005F7C2F /* VirtualObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualObject.swift; sourceTree = "<group>"; };
 		527CA6F5282CD32D00D56EA0 /* ARKit Study Memo.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = "ARKit Study Memo.md"; path = "../../../ARKit Study Memo.md"; sourceTree = "<group>"; };
+		52F19269282FCC2A00F3C520 /* ViewController+Coaching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Coaching.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				522C9C98282BDF0C00BA98B2 /* LaunchScreen.storyboard */,
 				5237C007282CCC27005F7C2F /* VirtualObject.swift */,
 				527CA6F5282CD32D00D56EA0 /* ARKit Study Memo.md */,
+				52F19269282FCC2A00F3C520 /* ViewController+Coaching.swift */,
 			);
 			path = FirstSKAR;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 			files = (
 				522C9C92282BDF0500BA98B2 /* ViewController.swift in Sources */,
 				522C9C8E282BDF0500BA98B2 /* AppDelegate.swift in Sources */,
+				52F1926A282FCC2A00F3C520 /* ViewController+Coaching.swift in Sources */,
 				5237C008282CCC27005F7C2F /* VirtualObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -20,6 +20,9 @@ class ViewController: UIViewController, ARSCNViewDelegate,ARSessionDelegate
     //
     var sessionStatusLabel: UILabel?
     
+    // オーバーレイビュー
+    let coachingOverlay = ARCoachingOverlayView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,6 +48,10 @@ class ViewController: UIViewController, ARSCNViewDelegate,ARSessionDelegate
                                          action: #selector(didTap(_:)))
         
         sceneView.addGestureRecognizer(tap)
+        
+        addSessionStatusLabel()
+        
+        setupCoachingOverlay()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +67,8 @@ class ViewController: UIViewController, ARSCNViewDelegate,ARSessionDelegate
         
         // Run the view's session
         sceneView.session.run(configuration)
+        
+        UIApplication.shared.isIdleTimerDisabled = true
     }
     
     // アンカーが追加された時に呼ばれるデリゲートメソッド
@@ -70,8 +79,10 @@ class ViewController: UIViewController, ARSCNViewDelegate,ARSessionDelegate
             return
         }
         
-        sessionStatusLabel?.text = "Plane was detected (SceneKit)"
-        print("Plane was detected (SceneKit)")
+        DispatchQueue.main.async {
+            self.sessionStatusLabel?.text = "Plane was detected (SceneKit)"
+            print("Plane was detected (SceneKit)")
+        }
     }
     
     // アンカーが削除されたときに呼ばれるデリゲートメソッド
@@ -81,8 +92,24 @@ class ViewController: UIViewController, ARSCNViewDelegate,ARSessionDelegate
             return
         }
         
-        sessionStatusLabel?.text = "Plane was removed (SceneKit)"
-        print("Plane was removed (SceneKit)")
+        DispatchQueue.main.async {
+            self.sessionStatusLabel?.text = "Plane was removed (SceneKit)"
+            print("Plane was removed (SceneKit)")
+        }
+    }
+    
+    // ARアンカーの情報が更新されたときの処理
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        if chair != nil && node == chair {
+            // 更新後のARアンカーの位置を取得
+            let translation = anchor.transform.columns.3
+            chair?.simdPosition = [translation.x,translation.y,translation.z]
+            chair?.anchor = anchor
+            
+            DispatchQueue.main.async {
+                print("ARAnchor was updated (Chair)")
+            }
+        }
     }
     
     private func placeChair(_ chair: VirtualObject){
@@ -213,6 +240,7 @@ class ViewController: UIViewController, ARSCNViewDelegate,ARSessionDelegate
             return
         }
         
+        sessionStatusLabel?.translatesAutoresizingMaskIntoConstraints = false
         sceneView.addSubview(sessionStatusLabel!)
         
         // 背景色を白色にする
@@ -222,7 +250,12 @@ class ViewController: UIViewController, ARSCNViewDelegate,ARSessionDelegate
         sessionStatusLabel?.font = .systemFont(ofSize: 17.0)
         
         // 常に下端に横幅一杯で表示する
-        sessionStatusLabel?.autoresizingMask = [.flexibleWidth,.flexibleTopMargin]
+        NSLayoutConstraint.activate([
+            sessionStatusLabel!.centerXAnchor.constraint(equalTo: sceneView.centerXAnchor),
+            sessionStatusLabel!.widthAnchor.constraint(equalTo: sceneView.widthAnchor),
+            sessionStatusLabel!.bottomAnchor.constraint(equalTo: sceneView.safeAreaLayoutGuide.bottomAnchor),
+            sessionStatusLabel!.heightAnchor.constraint(equalToConstant: 21.0)
+        ])
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -243,9 +276,40 @@ class ViewController: UIViewController, ARSCNViewDelegate,ARSessionDelegate
     }
 */
     
+    // セッションでエラーが発生すると呼ばれる
+    // error 発生したエラー情報
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
+        sessionStatusLabel?.text = "ARSession failed"
+        print("ARSession failed")
         
+        // ARKitから通知されたエラー以外なら処理しない
+        guard error is ARError else {
+            return
+        }
+        
+        // エラーメッセージを作る
+        var message = (error as NSError).localizedDescription
+        if let reason = (error as NSError).localizedFailureReason {
+            message += "\n\(reason)"
+        }
+        if let suggestion = (error as NSError).localizedRecoverySuggestion {
+            message += "\n\(suggestion)"
+        }
+        
+        // エラーメッセージを表示する
+        DispatchQueue.main.async {
+            // エラーメッセージの表示
+            let alert = UIAlertController(title: "ARSession Failed",
+                                          message: message,
+                                          preferredStyle: .alert)
+            // アラートが閉じられた後の処理
+            let reset = UIAlertAction(title: "Reset Tracking", style: .default) {
+                _ in self.resetTracking()
+            }
+            alert.addAction(reset)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     // ARSessionDelegateのメソッド
@@ -271,13 +335,48 @@ class ViewController: UIViewController, ARSCNViewDelegate,ARSessionDelegate
         }
     }
     
+    // カメラのトラッキング精度が変わった時に呼ばれる
+    func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
+        // トラッキング精度を調べて、ラベルとコンソールに出力する
+        switch camera.trackingState {
+        case .notAvailable:
+            sessionStatusLabel?.text = "Tracking State: Not available"
+            print("Tracking State: Not available")
+            
+        case .normal:
+            sessionStatusLabel?.text = "Traking State: Normal"
+            print("Tracking State: Normal")
+            chair?.isHidden = false
+            
+        case .limited(.initializing):
+            sessionStatusLabel?.text = "Tracking State: Limited(Initializing)"
+            print("Tracking State: Limited(Initializing)")
+            
+        case .limited(.relocalizing):
+            sessionStatusLabel?.text = "Tracking State: Limited(Relocalizing)"
+            print("Tracking State: Limited(Relocalizing)")
+            
+        case .limited(.excessiveMotion):
+            sessionStatusLabel?.text = "Tracking State: Limited(excessiveMotion)"
+            print("Tracking State: Limited(excessiveMotion)")
+            
+        case .limited(.insufficientFeatures):
+            sessionStatusLabel?.text = "Tracking State: Limited(InsufficientFeatures)"
+            print("Tracking State: Limited(InsufficientFeatures)")
+            break
+            
+        case .limited(_):
+            break
+        }
+    }
+    
     // 割り込みによりセッションが中断されたときに呼ばれる
     func sessionWasInterrupted(_ session: ARSession) {
         // Inform the user that the session has been interrupted, for example, by presenting an overlay
         sessionStatusLabel?.text = "Session was interrupted"
         print("Session was interrupted")
         
-        removeChair()
+        chair?.isHidden = true
     }
     
     // 中断されたセッションが再開されたときに呼ばれる
@@ -285,8 +384,11 @@ class ViewController: UIViewController, ARSCNViewDelegate,ARSessionDelegate
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         sessionStatusLabel?.text = "Session interruption ended"
         print("Session interruption ended")
-        
-        resetTracking()
+    }
+    
+    // リローカライズを行うかを返す
+    func sessionShouldAttemptRelocalization(_ session: ARSession) -> Bool {
+        return true
     }
     
     // トラッキングリセット
