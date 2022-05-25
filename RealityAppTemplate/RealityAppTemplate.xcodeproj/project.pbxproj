@@ -13,6 +13,8 @@
 		52B748B6283E09CE008CC8F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52B748B4283E09CE008CC8F7 /* Main.storyboard */; };
 		52B748B8283E09CF008CC8F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52B748B7283E09CF008CC8F7 /* Assets.xcassets */; };
 		52B748BB283E09CF008CC8F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52B748B9283E09CF008CC8F7 /* LaunchScreen.storyboard */; };
+		52B748C2283E0C2B008CC8F7 /* ViewController+Coaching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B748C1283E0C2B008CC8F7 /* ViewController+Coaching.swift */; };
+		52B748C4283E0CD8008CC8F7 /* VirtualObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B748C3283E0CD8008CC8F7 /* VirtualObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		52B748B5283E09CE008CC8F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		52B748B7283E09CF008CC8F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52B748BA283E09CF008CC8F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		52B748C1283E0C2B008CC8F7 /* ViewController+Coaching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Coaching.swift"; sourceTree = "<group>"; };
+		52B748C3283E0CD8008CC8F7 /* VirtualObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,8 @@
 				52B748B4283E09CE008CC8F7 /* Main.storyboard */,
 				52B748B7283E09CF008CC8F7 /* Assets.xcassets */,
 				52B748B9283E09CF008CC8F7 /* LaunchScreen.storyboard */,
+				52B748C1283E0C2B008CC8F7 /* ViewController+Coaching.swift */,
+				52B748C3283E0CD8008CC8F7 /* VirtualObject.swift */,
 			);
 			path = RealityAppTemplate;
 			sourceTree = "<group>";
@@ -136,8 +142,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52B748C4283E0CD8008CC8F7 /* VirtualObject.swift in Sources */,
 				52B748B1283E09CE008CC8F7 /* ViewController.swift in Sources */,
 				52B748AF283E09CE008CC8F7 /* AppDelegate.swift in Sources */,
+				52B748C2283E0C2B008CC8F7 /* ViewController+Coaching.swift in Sources */,
 				52B748B3283E09CE008CC8F7 /* Experience.rcproject in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
