@@ -14,23 +14,17 @@ struct ContentView : View {
     }
 }
 
-struct ARViewContainer: UIViewRepresentable {
+struct ARViewContainer: UIViewControllerRepresentable {
     
-    func makeUIView(context: Context) -> ARView {
-        
-        let arView = ARView(frame: .zero)
-        
-        // Load the "Box" scene from the "Experience" Reality File
-        let boxAnchor = try! Experience.loadBox()
-        
-        // Add the box anchor to the scene
-        arView.scene.anchors.append(boxAnchor)
-        
-        return arView
-        
+    typealias UIViewControllerType = ARContainerViewController
+    
+    func makeUIViewController(context: Context) -> ARContainerViewController {
+        return ARContainerViewController()
     }
     
-    func updateUIView(_ uiView: ARView, context: Context) {}
+    
+    func updateUIViewController(_ uiViewController: ARContainerViewController, context: Context) {
+    }
     
 }
 

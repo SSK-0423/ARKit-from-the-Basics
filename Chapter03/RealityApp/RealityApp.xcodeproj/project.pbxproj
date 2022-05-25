@@ -12,6 +12,10 @@
 		5269C9A2283D024D00B26375 /* Experience.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 5269C9A1283D024D00B26375 /* Experience.rcproject */; };
 		5269C9A4283D025300B26375 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5269C9A3283D025300B26375 /* Assets.xcassets */; };
 		5269C9A7283D025300B26375 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5269C9A6283D025300B26375 /* Preview Assets.xcassets */; };
+		5269C9AE283D030B00B26375 /* Chair.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 5269C9AD283D030B00B26375 /* Chair.usdz */; };
+		5269C9B0283D036F00B26375 /* ARContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5269C9AF283D036F00B26375 /* ARContainerViewController.swift */; };
+		5269C9B2283D0AE100B26375 /* VirtualObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5269C9B1283D0AE100B26375 /* VirtualObject.swift */; };
+		5269C9B4283DCBEF00B26375 /* ARContainerViewController+Coaching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5269C9B3283DCBEF00B26375 /* ARContainerViewController+Coaching.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +25,10 @@
 		5269C9A1283D024D00B26375 /* Experience.rcproject */ = {isa = PBXFileReference; lastKnownFileType = file.rcproject; path = Experience.rcproject; sourceTree = "<group>"; };
 		5269C9A3283D025300B26375 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5269C9A6283D025300B26375 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5269C9AD283D030B00B26375 /* Chair.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Chair.usdz; sourceTree = "<group>"; };
+		5269C9AF283D036F00B26375 /* ARContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARContainerViewController.swift; sourceTree = "<group>"; };
+		5269C9B1283D0AE100B26375 /* VirtualObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualObject.swift; sourceTree = "<group>"; };
+		5269C9B3283DCBEF00B26375 /* ARContainerViewController+Coaching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARContainerViewController+Coaching.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,11 +61,15 @@
 		5269C99C283D024D00B26375 /* RealityApp */ = {
 			isa = PBXGroup;
 			children = (
+				5269C9AD283D030B00B26375 /* Chair.usdz */,
 				5269C99D283D024D00B26375 /* AppDelegate.swift */,
 				5269C99F283D024D00B26375 /* ContentView.swift */,
 				5269C9A1283D024D00B26375 /* Experience.rcproject */,
 				5269C9A3283D025300B26375 /* Assets.xcassets */,
 				5269C9A5283D025300B26375 /* Preview Content */,
+				5269C9AF283D036F00B26375 /* ARContainerViewController.swift */,
+				5269C9B1283D0AE100B26375 /* VirtualObject.swift */,
+				5269C9B3283DCBEF00B26375 /* ARContainerViewController+Coaching.swift */,
 			);
 			path = RealityApp;
 			sourceTree = "<group>";
@@ -129,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5269C9A7283D025300B26375 /* Preview Assets.xcassets in Resources */,
+				5269C9AE283D030B00B26375 /* Chair.usdz in Resources */,
 				5269C9A4283D025300B26375 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,9 +153,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5269C9B2283D0AE100B26375 /* VirtualObject.swift in Sources */,
 				5269C9A0283D024D00B26375 /* ContentView.swift in Sources */,
 				5269C99E283D024D00B26375 /* AppDelegate.swift in Sources */,
 				5269C9A2283D024D00B26375 /* Experience.rcproject in Sources */,
+				5269C9B0283D036F00B26375 /* ARContainerViewController.swift in Sources */,
+				5269C9B4283DCBEF00B26375 /* ARContainerViewController+Coaching.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,7 +290,7 @@
 				DEVELOPMENT_TEAM = 8XX4TJCXSB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This application will use the camera for Augmented Reality";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
@@ -305,7 +321,7 @@
 				DEVELOPMENT_TEAM = 8XX4TJCXSB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This application will use the camera for Augmented Reality";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
