@@ -8,19 +8,22 @@
 import UIKit
 import RealityKit
 import ARKit
+import Combine
 
 class ViewController: UIViewController, ARSessionDelegate {
     
     @IBOutlet var arView: ARView!
     var coachingOverlay = ARCoachingOverlayView()
+    var collisionBegan: Cancellable?
+    
     var planeAnchor: AnchorEntity?
-    var boxModel: ModelEntity?
-    var postObject: VirtualObject?
+    var leftWallModel: ModelEntity?
+    var rightWallModel: ModelEntity?
+    var ballModel: ModelEntity?
+    var playbackController: AnimationPlaybackController?
     
     // UIViewControllerのプロパティ
     override func loadView() {
-        
-        self.title = "環境マッピング・オクルージョンテスト"
         self.view = UIView(frame:.zero)
         // RealityKitのARViewを作成する
         arView = ARView(frame: .zero,
@@ -58,39 +61,29 @@ class ViewController: UIViewController, ARSessionDelegate {
     
     // ARセッションをリセットする
     func resetTracking() {
-        // ビューのシーン認識オプションを設定する
-        arView.environment.sceneUnderstanding.options = [.occlusion,.physics,.receivesLighting]
+        // コリジョン有効化
+        arView.environment.sceneUnderstanding.options = [.collision]
         
         let config = ARWorldTrackingConfiguration()
         
-        // シーン再構築を有効化する
-        // シーン再構築が可能なデバイスかを調べる
-        if ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
-            config.sceneReconstruction = .mesh
-//            arView.debugOptions = [.showSceneUnderstanding]
-        }
-        
         // 水平面を検出する
         config.planeDetection = [.horizontal]
-        // 環境テクスチャマッピングを有効化する
-        config.environmentTexturing = .automatic
-        
-        // 人物によるオクルージョンを行う
-        if ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth){
-            config.frameSemantics.insert(.personSegmentationWithDepth)
-        }
         // セッションを開始する
         arView.session.run(config, options: [.removeExistingAnchors,.resetTracking])
         
+        // コリジョン開始時のイベントを受け取る
+        collisionBegan = arView.scene.subscribe(to: CollisionEvents.Began.self,
+                                                onCollisionBegan)
+        
         // 平面アンカーエンティティを追加する
-        planeAnchor = AnchorEntity(plane: .horizontal)
-        arView.scene.addAnchor(planeAnchor!)
+        planeAnchor = addPlane()
         
-        // ボックスを生成する
-        addBox()
+        // 左右の壁を追加する
+        leftWallModel = addWall(xPosition: -0.3, plane: planeAnchor!)
+        rightWallModel = addWall(xPosition: 0.3, plane: planeAnchor!)
         
-        // ポストを追加する
-        addPost()
+        // ボールを追加する
+        ballModel = addBall(plane: planeAnchor!)
     }
     
     // ARセッション中断時の処理
@@ -136,8 +129,12 @@ class ViewController: UIViewController, ARSessionDelegate {
     func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
         switch camera.trackingState {
         case .normal:
-            // 配置済みコンテンツを再表示する
+            // 壁までの移動を開始する
+            if let wall = leftWallModel {
+                moveBallToWall(wall: wall)
+            }
             break
+            
         default:
             break
         }

@@ -15,12 +15,13 @@
 		52B748BB283E09CF008CC8F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52B748B9283E09CF008CC8F7 /* LaunchScreen.storyboard */; };
 		52B748C2283E0C2B008CC8F7 /* ViewController+Coaching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B748C1283E0C2B008CC8F7 /* ViewController+Coaching.swift */; };
 		52B748C4283E0CD8008CC8F7 /* VirtualObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B748C3283E0CD8008CC8F7 /* VirtualObject.swift */; };
-		52CC6488283E4ACB00FD81FD /* Post.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 52CC6487283E4ACB00FD81FD /* Post.usdz */; };
-		52CC648A283E4BC900FD81FD /* ViewController+Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52CC6489283E4BC900FD81FD /* ViewController+Model.swift */; };
+		52C71B0F283FA5B4002CD405 /* ViewController+Collision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C71B0E283FA5B4002CD405 /* ViewController+Collision.swift */; };
+		52C71B11283FA74D002CD405 /* ViewController+Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C71B10283FA74D002CD405 /* ViewController+Model.swift */; };
+		52C71B13283FADCF002CD405 /* ViewController+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C71B12283FADCF002CD405 /* ViewController+Animation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		52B748AB283E09CE008CC8F7 /* RealityAppCH7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealityAppCH7.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		52B748AB283E09CE008CC8F7 /* RealityAppCH8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealityAppCH8.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52B748AE283E09CE008CC8F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52B748B0283E09CE008CC8F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		52B748B2283E09CE008CC8F7 /* Experience.rcproject */ = {isa = PBXFileReference; lastKnownFileType = file.rcproject; path = Experience.rcproject; sourceTree = "<group>"; };
@@ -29,8 +30,9 @@
 		52B748BA283E09CF008CC8F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52B748C1283E0C2B008CC8F7 /* ViewController+Coaching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Coaching.swift"; sourceTree = "<group>"; };
 		52B748C3283E0CD8008CC8F7 /* VirtualObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualObject.swift; sourceTree = "<group>"; };
-		52CC6487283E4ACB00FD81FD /* Post.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Post.usdz; sourceTree = "<group>"; };
-		52CC6489283E4BC900FD81FD /* ViewController+Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Model.swift"; sourceTree = "<group>"; };
+		52C71B0E283FA5B4002CD405 /* ViewController+Collision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Collision.swift"; sourceTree = "<group>"; };
+		52C71B10283FA74D002CD405 /* ViewController+Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Model.swift"; sourceTree = "<group>"; };
+		52C71B12283FADCF002CD405 /* ViewController+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Animation.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +57,7 @@
 		52B748AC283E09CE008CC8F7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				52B748AB283E09CE008CC8F7 /* RealityAppCH7.app */,
+				52B748AB283E09CE008CC8F7 /* RealityAppCH8.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -63,7 +65,6 @@
 		52B748AD283E09CE008CC8F7 /* RealityAppTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				52CC6487283E4ACB00FD81FD /* Post.usdz */,
 				52B748AE283E09CE008CC8F7 /* AppDelegate.swift */,
 				52B748B0283E09CE008CC8F7 /* ViewController.swift */,
 				52B748B2283E09CE008CC8F7 /* Experience.rcproject */,
@@ -72,7 +73,9 @@
 				52B748B9283E09CF008CC8F7 /* LaunchScreen.storyboard */,
 				52B748C1283E0C2B008CC8F7 /* ViewController+Coaching.swift */,
 				52B748C3283E0CD8008CC8F7 /* VirtualObject.swift */,
-				52CC6489283E4BC900FD81FD /* ViewController+Model.swift */,
+				52C71B0E283FA5B4002CD405 /* ViewController+Collision.swift */,
+				52C71B10283FA74D002CD405 /* ViewController+Model.swift */,
+				52C71B12283FADCF002CD405 /* ViewController+Animation.swift */,
 			);
 			path = RealityAppTemplate;
 			sourceTree = "<group>";
@@ -94,7 +97,7 @@
 			);
 			name = RealityAppTemplate;
 			productName = RealityAppTemplate;
-			productReference = 52B748AB283E09CE008CC8F7 /* RealityAppCH7.app */;
+			productReference = 52B748AB283E09CE008CC8F7 /* RealityAppCH8.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -138,7 +141,6 @@
 				52B748BB283E09CF008CC8F7 /* LaunchScreen.storyboard in Resources */,
 				52B748B8283E09CF008CC8F7 /* Assets.xcassets in Resources */,
 				52B748B6283E09CE008CC8F7 /* Main.storyboard in Resources */,
-				52CC6488283E4ACB00FD81FD /* Post.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,11 +152,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				52B748C4283E0CD8008CC8F7 /* VirtualObject.swift in Sources */,
+				52C71B0F283FA5B4002CD405 /* ViewController+Collision.swift in Sources */,
 				52B748B1283E09CE008CC8F7 /* ViewController.swift in Sources */,
-				52CC648A283E4BC900FD81FD /* ViewController+Model.swift in Sources */,
+				52C71B13283FADCF002CD405 /* ViewController+Animation.swift in Sources */,
 				52B748AF283E09CE008CC8F7 /* AppDelegate.swift in Sources */,
 				52B748C2283E0C2B008CC8F7 /* ViewController+Coaching.swift in Sources */,
 				52B748B3283E09CE008CC8F7 /* Experience.rcproject in Sources */,
+				52C71B11283FA74D002CD405 /* ViewController+Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,8 +321,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "r-nk.RealityAppCH7";
-				PRODUCT_NAME = RealityAppCH7;
+				PRODUCT_BUNDLE_IDENTIFIER = "r-nk.RealityAppCH8";
+				PRODUCT_NAME = RealityAppCH8;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -348,8 +352,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "r-nk.RealityAppCH7";
-				PRODUCT_NAME = RealityAppCH7;
+				PRODUCT_BUNDLE_IDENTIFIER = "r-nk.RealityAppCH8";
+				PRODUCT_NAME = RealityAppCH8;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
